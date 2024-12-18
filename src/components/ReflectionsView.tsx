@@ -1,5 +1,4 @@
 import { Card } from './ui/card'
-import { Message } from '../lib/types'
 interface ReflectionsViewProps {
   analysis: {
     personalReflections?: {

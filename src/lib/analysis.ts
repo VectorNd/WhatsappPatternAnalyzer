@@ -2,7 +2,7 @@ import { Message } from '@/lib/types'
 import Groq from 'groq-sdk'
 
 const groq = new Groq({
-  apiKey: process.env.NEXT_PUBLIC_GROQ_API_KEY,
+  apiKey: "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",
   dangerouslyAllowBrowser: true
 })
 

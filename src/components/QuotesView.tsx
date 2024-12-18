@@ -22,7 +22,7 @@ export function QuotesView({ analysis }: QuotesViewProps) {
     <div className="grid gap-4">
       {quotes.map((quote, index) => (
         <Card key={index} className="p-4">
-          <p className="italic">"{quote.text}"</p>
+          <p className="italic">{quote.text}</p>
           <p className="text-sm text-muted-foreground">{quote.author}</p>
           <p className="text-sm text-muted-foreground">{quote.context}</p>
         </Card>

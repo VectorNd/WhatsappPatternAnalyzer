@@ -12,9 +12,29 @@ import { ReflectionsView } from './ReflectionsView'
 import { ReadingListView } from './ReadingList'
 import { PatternCharts } from './charts/PatternCharts'
 
+interface Analysis {
+  mainThemes: {
+    category: string;
+    messages: { timestamp: string; content: string; }[];
+  }[];
+  urlCategories: {
+    type: string;
+    urls: string[];
+  }[];
+  quotes: { text: string; author: string; context: string;}[];
+  personalReflections: { text: string; context: string; }[];
+  readingLists: string[][];
+}
+
 export function PatternDisplay() {
   const { messages } = usePatternStore()
-  const [analysis, setAnalysis] = useState<any>(null)
+  const [analysis, setAnalysis] = useState<Analysis>({
+    mainThemes: [],
+    urlCategories: [],
+    quotes: [],
+    personalReflections: [],
+    readingLists: []
+  })
   const [loading, setLoading] = useState(false)
   const [isVisible, setIsVisible] = useState(false)
   
