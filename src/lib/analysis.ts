@@ -2,7 +2,7 @@ import { Message } from '@/lib/types'
 import Groq from 'groq-sdk'
 
 const groq = new Groq({
-  apiKey: "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",
+  apiKey: "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",
   dangerouslyAllowBrowser: true
 })
 
@@ -52,7 +52,7 @@ export async function analyzePatterns(messages: Message[]) {
           "timestamps": ["string"],
           "sentiment": [number],
           "topics": ["string"]
-        }
+        },
       }
 
       Ensure that:
@@ -64,7 +64,8 @@ export async function analyzePatterns(messages: Message[]) {
       article, design inspiration, etc.)
       3. Quotes include the text, author, and context
       4. Personal reflections capture thoughts and insights with context
-      5. Reading lists are grouped in arrays`
+      5. Reading lists are grouped in arrays
+      6. Sentiment analysis should include timestamps, sentiment scores, and topics`
     }, {
       role: "user",
       content: content
@@ -79,6 +80,102 @@ export async function analyzePatterns(messages: Message[]) {
   console.log("result")
   console.log(result)
 
+  if (!result) {
+    throw new Error('No response from Mistral')
+  }
+
+  const jsonMatch = result.match(/```(?:json)?\s*([\s\S]*?)```/);
+  const jsonContent = jsonMatch ? jsonMatch[1] : result;
+
+  try {
+    const res = JSON.parse(jsonContent.trim());
+    console.log("res")
+    console.log(res)
+    return res
+  } catch (error) {
+    console.error('Failed to parse JSON:', error);
+    throw new Error('Invalid JSON response');
+  }
+}
+
+export async function analyzeEmotionalPatterns(messages: Message[]) {
+  const content = messages.map(m => m.content).join('\n')
+
+  const chatResponse = await groq.chat.completions.create({
+    model: 'llama3-70b-8192',
+    messages: [{
+      role: "system",
+      content: `Analyze the emotional patterns in these WhatsApp messages. For each message, determine:
+      1. The emotional mood (must be one of: 'music', 'study', 'motivational', 'enjoying', 'neutral')
+      2. An emotional score (0-1)
+      3. What triggered this mood
+      
+      Return the analysis in this exact JSON format:
+      {
+        "overall": number (0-1),
+        "trends": [
+          {
+            "timestamp": "string (exact message timestamp)",
+            "score": number (0-1),
+            "mood": "string (one of the specified moods)",
+            "trigger": "string (what caused this mood)",
+            "annotation": "string (the actual message content)"
+          }
+        ]
+      }`
+    }, {
+      role: "user",
+      content: content
+    }]
+  });
+
+  const result = chatResponse.choices?.[0]?.message.content;
+  
+  if (!result) {
+    throw new Error('No response from Mistral')
+  }
+
+  const jsonMatch = result.match(/```(?:json)?\s*([\s\S]*?)```/);
+  const jsonContent = jsonMatch ? jsonMatch[1] : result;
+
+  try {
+    return JSON.parse(jsonContent.trim());
+  } catch (error) {
+    console.error('Failed to parse JSON:', error);
+    throw new Error('Invalid JSON response');
+  }
+}
+
+export async function analyzeWordFrequency(messages: Message[]) {
+  const content = messages.map(m => m.content).join('\n')
+
+  const chatResponse = await groq.chat.completions.create({
+    model: 'llama3-70b-8192',
+    messages: [{
+      role: "system",
+      content: `Analyze the frequency of meaningful words and phrases in these messages. 
+      Ignore common stop words (the, a, an, etc.) and focus on significant terms.
+      Return the analysis in this JSON format:
+      {
+        "words": [
+          {
+            "text": "string (the word or short phrase)",
+            "value": "number (frequency count)",
+            "category": "string (topic category)"
+          }
+        ]
+      }
+      
+      Include only words that appear at least twice.
+      Limit to the top 50 most frequent meaningful terms.`
+    }, {
+      role: "user",
+      content: content
+    }]
+  });
+
+  const result = chatResponse.choices?.[0]?.message.content;
+  
   if (!result) {
     throw new Error('No response from Mistral')
   }

@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Card } from './ui/card'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs'
 import { usePatternStore } from '../lib/store'
@@ -10,7 +10,8 @@ import { UrlsView } from './UrlsView'
 import { QuotesView } from './QuotesView'
 import { ReflectionsView } from './ReflectionsView'
 import { ReadingListView } from './ReadingList'
-import { PatternCharts } from './charts/PatternCharts'
+import { PatternCharts } from './PatternCharts'
+import { AdvancedPatterns } from './AdvancedPatterns'
 
 interface Analysis {
   mainThemes: {
@@ -37,8 +38,14 @@ export function PatternDisplay() {
   })
   const [loading, setLoading] = useState(false)
   const [isVisible, setIsVisible] = useState(false)
+
+  const isFirstRender = useRef(true)
   
   useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false
+      return
+    }
     if (messages.length > 0) {
       setLoading(true)
       setTimeout(() => setIsVisible(true), 100)
@@ -56,13 +63,14 @@ export function PatternDisplay() {
       ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
     >
       <Tabs defaultValue="themes" className="w-full">
-        <TabsList className="grid w-full grid-cols-6">
+        <TabsList className="grid w-full grid-cols-7">
           <TabsTrigger value="themes">Themes</TabsTrigger>
           <TabsTrigger value="urls">URLs</TabsTrigger>
           <TabsTrigger value="quotes">Quotes</TabsTrigger>
           <TabsTrigger value="reflections">Reflections</TabsTrigger>
           <TabsTrigger value="reading">Reading List</TabsTrigger>
           <TabsTrigger value="charts">Charts</TabsTrigger>
+          <TabsTrigger value="advanced">Advanced</TabsTrigger>
         </TabsList>
 
         <div className="mt-4">
@@ -87,6 +95,9 @@ export function PatternDisplay() {
               </TabsContent>
               <TabsContent value="charts">
                 <PatternCharts analysis={analysis} />
+              </TabsContent>
+              <TabsContent value="advanced">
+                <AdvancedPatterns />
               </TabsContent>
             </>
           )}
