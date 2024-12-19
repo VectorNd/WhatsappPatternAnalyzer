@@ -39,7 +39,7 @@ A web application that analyzes WhatsApp chat exports to discover patterns, them
 
 1. Clone the repository
 ```bash 
-git clone https://github.com/VectorNdwhatsapp-pattern-analyzer.git
+git clone https://github.com/VectorNd/WhatsappPatternAnalyzer.git
 ```
 2. Install dependencies: 
 ``` bash 
