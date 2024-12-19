@@ -2,8 +2,8 @@ import { Message } from '@/lib/types'
 import Groq from 'groq-sdk'
 
 const groq = new Groq({
-  apiKey: "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",
-  dangerouslyAllowBrowser: true
+  apiKey: "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",
+  dangerouslyAllowBrowser: true,
 })
 
 export async function analyzePatterns(messages: Message[]) {
@@ -13,6 +13,7 @@ export async function analyzePatterns(messages: Message[]) {
 
   const chatResponse = await groq.chat.completions.create({
     model: 'llama3-70b-8192',
+    temperature : 0.3,
     messages: [{
       role: "system",
       content: `Analyze the following WhatsApp chat messages and return the analysis in this exact JSON format:
@@ -103,6 +104,7 @@ export async function analyzeEmotionalPatterns(messages: Message[]) {
 
   const chatResponse = await groq.chat.completions.create({
     model: 'llama3-70b-8192',
+    temperature : 0.3,
     messages: [{
       role: "system",
       content: `Analyze the emotional patterns in these WhatsApp messages. For each message, determine:
@@ -151,6 +153,7 @@ export async function analyzeWordFrequency(messages: Message[]) {
 
   const chatResponse = await groq.chat.completions.create({
     model: 'llama3-70b-8192',
+    temperature : 0.3,
     messages: [{
       role: "system",
       content: `Analyze the frequency of meaningful words and phrases in these messages. 

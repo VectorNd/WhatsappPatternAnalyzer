@@ -1,36 +1,61 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# WhatsApp Pattern Analyzer
 
-## Getting Started
+A web application that analyzes WhatsApp chat exports to discover patterns, themes, emotional trends, and insights from your conversations.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- 📊 Pattern Recognition: Discover recurring themes and topics in conversations
+- 📈 Visual Analytics: Interactive charts and visualizations
+- 🎯 Instant Analysis: Real-time processing of chat data
+- 🔍 Advanced Analysis:
+  - Emotional flow tracking
+  - Word frequency analysis
+  - Sentiment analysis
+  - Theme categorization
+  - URL categorization
+  - Quote extraction
+  - Reading list compilation
+
+## Tech Stack
+
+- Next.js 15.1
+- React 18
+- TypeScript
+- Tailwind CSS
+- Chart.js
+- D3.js
+- Groq AI API
+- Zustand (State Management)
+- Radix UI Components
+- Shadcn/ui
+
+## Prerequisites
+
+- Node.js 18+ 
+- npm or yarn
+- A Groq API key (optional)
+
+## Setup
+
+1. Clone the repository
+```bash 
+git clone https://github.com/VectorNdwhatsapp-pattern-analyzer.git
 ```
+2. Install dependencies: 
+``` bash 
+npm install 
+```
+3. [Optional] - Set up your Groq API key in the `.env` file
+4. Run the development server: 
+``` bash 
+npm run dev 
+```
+5. Open [http://localhost:3000](http://localhost:3000) in your browser
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Privacy
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+All chat processing is done locally in your browser. No chat data is stored on any server or sent anywhere except to the Groq AI API for pattern analysis.
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.

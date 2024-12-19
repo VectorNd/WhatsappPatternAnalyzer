@@ -14,10 +14,9 @@ import {
 } from 'chart.js'
 import { Card} from './ui/card'
 import { Button } from './ui/button' 
-import { Calendar, Filter, TrendingUp } from 'lucide-react'
+import { Filter, TrendingUp } from 'lucide-react'
 import Chart from 'chart.js/auto';
 import { SentimentAnalysis } from './charts/SentimentAnalysis'
-import { TimelineView } from './charts/TimelineView'
 import { DistributionView } from './charts/DistributionView'
 
 ChartJS.register(
@@ -41,30 +40,25 @@ interface PatternChartsProps {
 }
 
 export function PatternCharts({ analysis }: PatternChartsProps) {
-  const [viewType, setViewType] = useState<'timeline' | 'distribution' | 'sentiment'>('timeline')
+  const [viewType, setViewType] = useState<'distribution' | 'sentiment'>('distribution')
 
   return (
     <div className="space-y-6">
       <Card className="p-4">
-        <div className="flex items-center justify-end">
-          <div className="flex gap-2">
+        <div className="flex items-center justify-center">
+          <div className="inline-flex rounded-lg border p-1">
             <Button
-              variant={viewType === 'timeline' ? 'default' : 'outline'}
-              onClick={() => setViewType('timeline')}
-            >
-              <Calendar className="w-4 h-4 mr-2" />
-              Timeline
-            </Button>
-            <Button
-              variant={viewType === 'distribution' ? 'default' : 'outline'}
+              variant={viewType === 'distribution' ? 'default' : 'ghost'}
               onClick={() => setViewType('distribution')}
+              className="rounded-sm px-3"
             >
               <TrendingUp className="w-4 h-4 mr-2" />
               Distribution
             </Button>
             <Button
-              variant={viewType === 'sentiment' ? 'default' : 'outline'}
+              variant={viewType === 'sentiment' ? 'default' : 'ghost'}
               onClick={() => setViewType('sentiment')}
+              className="rounded-sm px-3"
             >
               <Filter className="w-4 h-4 mr-2" />
               Sentiment
@@ -74,7 +68,6 @@ export function PatternCharts({ analysis }: PatternChartsProps) {
       </Card>
 
       <div className="grid gap-6">
-        {viewType === 'timeline' && <TimelineView data={analysis} />}
         {viewType === 'distribution' && <DistributionView data={analysis} />}
         {viewType === 'sentiment' && <SentimentView data={analysis} />}
       </div>
