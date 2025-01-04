@@ -56,6 +56,16 @@ npm run dev
 ```
 5. Open [http://localhost:3000](http://localhost:3000) in your browser
 
+## Export Chat 
+
+- Open the Chat : Go to the individual or group chat you want to export.
+- Tap on Menu (Three Dots) : Located in the top-right corner.
+- Select "More" : From the dropdown menu, choose More.
+- Choose "Export Chat" : You’ll be asked whether to include media (like images, videos) or not.
+- If you select Without Media, only the text will be exported in .txt format.
+- Select the Export Method : You can email it to yourself, save it to a cloud service, or send it to another app.
+- Save or Share : A .txt file containing the chat history will be generated and shared via the chosen method.
+- Attach that .txt file in the drop or upload functionality in the website 
 
 ## Privacy
 
