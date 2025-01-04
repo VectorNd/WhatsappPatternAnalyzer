@@ -2,6 +2,9 @@
 
 A web application that analyzes WhatsApp chat exports to discover patterns, themes, emotional trends, and insights from your conversations.
 
+###Project Demo 
+https://www.loom.com/share/38ec30e7232e45d38ef259a4c71e6045?sid=f155b429-57aa-4b6a-990c-d8b3607d41df
+
 ## Features
 
 - 📊 Pattern Recognition: Discover recurring themes and topics in conversations
